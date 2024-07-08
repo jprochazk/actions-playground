@@ -1,3 +1,5 @@
+name: "Test"
+
 on:
   issue_comment:
     types: [created]
@@ -20,3 +22,4 @@ jobs:
       - name: Test
         run: |
           echo "${{ github.event.comment.body }}"
+
