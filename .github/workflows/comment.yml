@@ -1,0 +1,22 @@
+on:
+  issue_comment:
+    types: [created]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  parse-command:
+    if: |
+      contains(github.event.comment.html_url, '/pull/') &&
+      contains(github.event.comment.body, '@rerun-bot') &&
+      contains(
+        fromJSON('["COLLABORATOR","MEMBER","OWNER"]'),
+        github.event.comment.author_association
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: |
+          echo "${{ github.event.comment.body }}"
